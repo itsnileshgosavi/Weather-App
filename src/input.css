@@ -1,0 +1,79 @@
+@tailwind base;
+
+.icon{
+    @apply h-10 w-10
+}
+@tailwind components;
+@tailwind utilities;
+
+.cloud{
+    @apply absolute opacity-70 animate-[cloudy-day-movement_30s_ease-out_infinite_alternate] z-10
+}
+
+.cloud-big{
+    @apply top-[35%] right-[-10%] animate-[cloudy-day-movement_50s_ease-out_infinite_alternate]
+}
+
+.cloud-medium{
+    @apply top-[25%] right-[50%] animate-[cloudy-day-movement_60s_ease-out_infinite_alternate]
+}
+.cloud-small{
+    @apply top-[20%] right-[25%] animate-[cloudy-day-movement_40s_ease-out_infinite_alternate]
+}
+
+.sun1{
+    @apply absolute left-1/2 top-[7%] translate-x-1/2 w-14 h-14 bg-[#FFCC33] rounded-full animate-[sunAnimation_20s_ease-in-out_infinite] origin-[50%_600%]
+   
+  }
+
+
+@layer base{
+   
+   
+    @keyframes cloudy-day-movement {
+        to {
+            transform: translateX(-300px);
+        }
+    }
+    
+    @keyframes sunny-day-movement {
+        to {
+            transform: translateX(100px);
+        }
+    }
+
+    @keyframes nightanimation {
+        0% {
+            background-color: rgb(0, 14, 19);
+        }
+    
+        50% {
+            background-color: #5083bdb7;
+        }
+    
+         70% {
+            background-color: #475d85;
+        } 
+    
+        100% {
+            background-color: rgb(1, 8, 10);
+        }
+    }
+    
+      @keyframes sunAnimation {
+        0% {
+          transform: rotate(-180deg);
+          background-color: #FFE484;
+        }
+        25%{background-color:#FFE484}
+        50% {
+          transform: rotate(0);
+          backgound-color: #FFCC33;
+        }
+        75%{background-color: #FC9601;}
+        100% {
+          transform: rotate(180deg);
+          background-color: #D14009
+        }
+      }
+}
