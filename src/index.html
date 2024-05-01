@@ -35,19 +35,19 @@
         <div class="flex md:w-10 justify-self-center">
           <div class="lg:flex md:w-10 lg:w-24 hidden">
             <label
-              class="input input-bordered flex items-center gap-2 bg-slate-500"
+              class="input input-bordered flex items-center gap-2 bg-[#7f7d7e] dark:bg-slate-400 h-10 w-96"
             >
               <input
                 type="text"
-                class="w-16 lg:w-24"
+                class="w-16 lg:w-52 text-white placeholder:text-gray-300"
                 spellcheck="false"
-                placeholder="Search City"
+                placeholder="Enter city name & Press Enter"
                 id="searchbox"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
-                fill="currentColor"
+                fill="#000"
                 class="w-4 h-4 opacity-70"
               >
                 <path
@@ -117,7 +117,7 @@
         class="w-fit h-10 border-black border p-2 shadow-md bg-blue-200 rounded-lg"
         spellcheck="false"
         placeholder="Enter City Name"
-        id="searchbox"
+        id="searchboxmb"
       />
       <input type="button" value="Search" id="searchbtn" class="btn btn-primary p-0 mx-2 block my-0">
       <input type="button" value="Use Location" id="gpsbtn2" class="btn btn-secondary text-xs ">
@@ -129,12 +129,12 @@
       
       <section
         id="hero"
-        class="grid md:grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_2fr_1fr_2fr] md:grid-rows-[1fr_0.5fr] grid-cols-1 gap-y-4 gap-x-0 md:gap-5 max-w-full overflow-hidden"
+        class="grid md:grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_2fr_1fr_2fr] md:grid-rows-[1fr_0.5fr] grid-cols-1 md:min-h-[80vh] gap-y-4 gap-x-0 md:gap-5 max-w-full overflow-hidden"
       >
         <!-- humidity and wind and chance of rain -->
         <div class="row-start-2 self-center md:row-span-1 my-5 h-full md:row-start-1">
           <div
-            class="rounded-2xl h-[48%] mt-5 mx-2 flex justify-center items-center bg-[url('./assets/img/raingif.gif')] bg-cover"
+            class="rounded-2xl h-[48%] mt-5 mx-2 flex justify-center items-center bg-[url('./assets/img/raingif.gif')] bg-cover shadow-lg shadow-slate-600"
           >
             <div class="flex flex-col items-center card">
               <p
@@ -144,12 +144,12 @@
               >
                 70%
               </p>
-              <p class="my-3 text-white font-extrabold text-lg md:text-2xl">
+              <p class="my-3 text-white font-extrabold text-lg md:text-xl lg:text-2xl">
                 Chance of Rain
               </p>
             </div>
           </div>
-          <div class="bg-slate-400 h-[48%] rounded-2xl mt-3 mx-2 grid grid-cols-2 card">
+          <div class="dark:bg-slate-400 bg-[#bcc0be] text-base-content h-[48%] rounded-2xl mt-3 mx-2 grid grid-cols-2 card shadow-lg shadow-slate-600">
             <div class="p-0 md:p-2 flex justify-center flex-col items-center h-full">
               <img src="./assets/img/humidity.png" alt="humidity"  />
               <p class="md:my-2 text-xl text-white font-semibold">Humidity</p>
@@ -162,15 +162,15 @@
               <img src="./assets/img/wind.png" alt="wind" />
               <p class="my-2 text-xl text-white font-semibold">Wind</p>
               <p class="text-xl text-white font-semibold">
-                <span id="wind">5</span>Km/h
+                <span id="wind">5</span> Km/h
               </p>
             </div>
           </div>
         </div>
         <!-- main card  -->
         <div
-          class="card bg-blue-300 row-start-1 h-full mx-2 my-5 items-center relative overflow-hidden"
-        >
+          class="card bg-blue-300 row-start-1 h-full mx-2 my-5 items-center relative overflow-hidden shadow-lg shadow-slate-600" >
+             <!-- sun -->
           <div class="sun h-14 w-14 bg-[#FFD93D] rounded-full absolute top-[15%] left-[10%] shadow-[2px_2px_16px_0_#ffd93c66] animate-[sunny-day-movement_30s_infinite_alternate] z-10"></div>
           <!-- clouds -->
           <svg
@@ -229,15 +229,15 @@
           </div>
         </div>
         <!-- Sunrise sunset card  -->
-        <div class="grid w-full h-[85%] md:h-full bg-[#68b7d6] card my-5 row-start-3 md:row-start-1 grid-cols-2 overflow-hidden animate-[nightanimation_20s_ease-in-out_infinite]" id="sunsetcard">
+        <div class="grid h-[85%] mx-2 md:h-full bg-[#68b7d6] card my-5 row-start-3 md:row-start-1 grid-cols-2 overflow-hidden animate-[nightanimation_20s_ease-in-out_infinite] shadow-lg shadow-slate-600" id="sunsetcard">
           <div class="p-2 flex flex-col items-center justify-center col-start-1 grid-rows-1">
             <img
               src="./assets/img/sunrise.png"
               class="w-16 h-16"
               alt="sunrise image"
             />
-            <p class="text-xl font-bold my-2">Sunrise</p>
-            <p id="sunrise" class="text-xl font-bold my-2">6:11 AM</p>
+            <p class="text-xl  font-bold my-2">Sunrise</p>
+            <p id="sunrise" class="text-xl lg:text-xl font-bold my-2 md:text-sm">6:11 AM</p>
           </div>
           
           <div class='sun1'></div>
@@ -248,7 +248,7 @@
               alt="sunset image"
             />
             <p class="text-xl font-bold my-2">Sunset</p>
-            <p id="sunset" class="text-xl font-bold my-2">6:54 PM</p>
+            <p id="sunset" class="text-xl lg:text-xl font-bold my-2 md:text-sm">6:54 PM</p>
           </div>
         </div>
         <!-- 5day Forecast -->
@@ -256,7 +256,7 @@
           class="col-span-1 md:col-span-3 md:row-start-2 row-start-4 card flex-row flex-wrap md:flex-nowrap row-span-2  items-center justify-center overflow-hidden"
         >
           <div
-            class="w-40 h-52 bg-gray-500 rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
+            class="w-40 h-52 bg-[#d8caa9] dark:bg-gray-500 dark:text-base-content text-black rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
           >
             <p>Tommorow</p>
             <img src="./assets/img/favicon.ico" alt="icon" id="img1" />
@@ -265,7 +265,7 @@
             <p>Humidity <span id="humidity1">25</span>%</p>
           </div>
           <div
-            class="w-40 h-52 bg-gray-500 rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
+            class="w-40 h-52 bg-[#d8caa9] dark:bg-gray-500 dark:text-base-content text-black rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
           >
             <p id="day1">24-04-2024</p>
             <img src="./assets/img/favicon.ico" alt="icon" id="img2" />
@@ -274,7 +274,7 @@
             <p>Humidity <span id="humidity2">25</span>%</p>
           </div>
           <div
-            class="w-40 h-52 bg-gray-500 rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
+            class="w-40 h-52 bg-[#d8caa9] dark:bg-gray-500 dark:text-base-content text-black rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
           >
             <p id="day2">24-04-2024</p>
             <img src="./assets/img/favicon.ico" alt="icon" id="img3" />
@@ -283,7 +283,7 @@
             <p>Humidity <span id="humidity3">25</span>%</p>
           </div>
           <div
-            class="w-40 h-52 bg-gray-500 rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
+            class="w-40 h-52 bg-[#d8caa9] dark:bg-gray-500 dark:text-base-content text-black rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
           >
             <p id="day3">24-04-2024</p>
             <img src="./assets/img/favicon.ico" alt="icon" id="img4" />
@@ -292,7 +292,7 @@
             <p>Humidity <span id="humidity4">25</span>%</p>
           </div>
           <div
-            class="w-40 h-52 bg-gray-500 rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
+            class="w-40 h-52 bg-[#d8caa9] dark:bg-gray-500 dark:text-base-content text-black rounded-3xl mt-6 m-2 flex justify-center items-center flex-col"
           >
             <p id="day4">24-04-2024</p>
             <img src="./assets/img/favicon.ico" alt="icon" id="img5" />
