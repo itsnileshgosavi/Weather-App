@@ -3,6 +3,9 @@
 .icon{
     @apply h-10 w-10
 }
+.dropdown-item{
+    @apply cursor-pointer p-1 hover:bg-blue-300 rounded-lg hover:ring-1
+}
 @tailwind components;
 @tailwind utilities;
 

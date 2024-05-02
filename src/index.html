@@ -16,10 +16,10 @@
     />
     <link rel="apple-touch-icon" href="./assets/img/favicon.ico" />
   </head>
-  <body class="bg-white dark:bg-base-100">
+  <body class="bg-[#f2e9e4] dark:bg-base-100">
     <header>
       <nav
-        class="lg:navbar flex bg-gray-200 dark:bg-base-200 text-black dark:text-white justify-between max-w-full overflow-hidden"
+        class="lg:navbar flex bg-[#bcb8b1] dark:bg-base-200 text-black dark:text-white justify-between max-w-full"
       >
         <div class="flex">
           <a class="btn btn-ghost md:text-xl">Weather Me</a>
@@ -35,28 +35,26 @@
         <div class="flex md:w-10 justify-self-center">
           <div class="lg:flex md:w-10 lg:w-24 hidden">
             <label
-              class="input input-bordered flex items-center gap-2 bg-[#7f7d7e] dark:bg-slate-400 h-10 w-96"
+              class="input input-bordered group flex items-center gap-2 bg-[#7f7d7e] dark:bg-slate-400 h-10 lg:w-52 overflow-visible relative"
             >
               <input
                 type="text"
-                class="w-16 lg:w-52 text-white placeholder:text-gray-300"
+                class="min-w-20 h-full text-white placeholder:text-gray-300 group rounded-lg"
                 spellcheck="false"
-                placeholder="Enter city name & Press Enter"
+                placeholder="Enter city & Press Enter"
                 id="searchbox"
+                autocomplete="off"
               />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="#000"
-                class="w-4 h-4 opacity-70"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
+              <ul class="dropdown absolute top-10 bg-[#b7b7a4] shadow-xl group-hover:block hidden border border-slate-700 dark:bg-slate-600 rounded-md right-0 z-[100] w-full">
+                <!-- <li class="block text-[#464614] mb-3 dark:text-base-content p-2">Rcent Searches</li> -->
+              </ul>
+              
             </label>
+            <button id="search-btn" class="p-2 bg-purple-600 rounded-lg border border-black active:translate-y-1 text-black flex">Search&nbsp;
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50">
+                <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+                </svg>
+            </button>
           </div>
         </div>
         <div>
@@ -67,12 +65,11 @@
             Use Location
           </button>
         </div>
-        <!-- day night toggle  -->
+        <!-- dark light toggle  -->
         <div class="flex items-center mx-2 gap-2">
           <label class="cursor-pointer grid place-items-center">
             <input
               type="checkbox"
-              value="synthwave"
               id="dark-toggle"
               class="toggle theme-controller bg-base-content row-start-1 col-start-1 col-span-2"
             />
@@ -114,7 +111,7 @@
       <div class="flex justify-center mt-2 items-center lg:hidden p-4 max-w-full mx-0 overflow-hidden">
         <input
         type="text"
-        class="w-fit h-10 border-black border p-2 shadow-md bg-blue-200 rounded-lg"
+        class="w-fit h-10 border-black border p-2 text-black shadow-md bg-blue-200 rounded-lg"
         spellcheck="false"
         placeholder="Enter City Name"
         id="searchboxmb"
@@ -215,7 +212,7 @@
 
           <div class="card-body flex-none flex justify-center items-center">
             <p class="text-[#11124c] text-5xl md:text-7xl lg:text-7xl text-center my-2 z-50">
-              <span id="tempmain" class="z-50">36</span>°C
+              <span id="tempmain" class="z-40">36</span>°C
             </p>
 
             <p class="text-[#11124c] text-xl">
