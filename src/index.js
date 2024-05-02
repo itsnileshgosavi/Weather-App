@@ -73,18 +73,40 @@ searchBtn.addEventListener("click", function(){
 
 // showing recent cities 
 const dropdownUl = document.querySelector(".dropdown");
-searchBox.addEventListener("mouseover", function(){
-  
-      dropdownUl.innerHTML=""
-    recentCities.forEach((cityy)=>{
-        
-        const listElement = document.createElement("li");
-        listElement.classList.add("dropdown-item");
-        listElement.innerText= cityy;
-        listElement.addEventListener("click", function(){city=cityy; getDatabyCityName()})
-        dropdownUl.appendChild(listElement);
-    })
-})
+searchBox.addEventListener("focus", function() {
+  dropdownUl.innerHTML = "";
+
+  if (recentCities.length > 0) {
+      dropdownUl.classList.remove("hidden");
+
+      const recents = document.createElement("li");
+      recents.innerText = "Recently Searched";
+      recents.classList.add("Dropdown-head");
+      dropdownUl.appendChild(recents);
+
+      recentCities.forEach((cityy) => {
+          const listElement = document.createElement("li");
+          listElement.classList.add("dropdown-item");
+          listElement.innerText = cityy;
+          listElement.addEventListener("click", ()=>{
+            city=cityy;
+            getDatabyCityName();
+          })
+          dropdownUl.appendChild(listElement);
+      });
+  }
+});
+
+
+let hideDropdownTimeout;
+searchBox.addEventListener("focusout", () => {
+  clearTimeout(hideDropdownTimeout);
+  //setting timeout because element gets hidden before click event on list item triggers
+  hideDropdownTimeout = setTimeout(function() {
+    dropdownUl.classList.add("hidden");
+}, 200);
+});
+
 
 
 
