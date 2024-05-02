@@ -37,5 +37,5 @@ To run the weather app locally, follow these steps:
 
 ## URLs
 
-Github Repository URL - To be updated later
-Hosted AT - To be updated later
+- Github Repository URL - https://github.com/itsnileshgosavi/Weather-App
+- Deployed At -  https://app-weatherme.netlify.app/
