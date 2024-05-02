@@ -49,21 +49,44 @@ const cloudMed = document.querySelector(".cloud-medium");
 const cloudSmall = document.querySelector(".cloud-small");
 const locationBtn = document.getElementById("gpsbtn");
 const mbLocationBtn = document.getElementById("gpsbtn2");
+const searchBtn = document.getElementById("search-btn");
+
+
+//initializing array for recently searched cities
+
+const recentCities = JSON.parse(sessionStorage.getItem("recentCities")) || [];
+
 
 // event listener to get data after entering the city
 
 searchBox.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     city = this.value;
-    getDatabyCityName();
-    
+    getDatabyCityName();   
   }
 });
 
-searchBox.addEventListener('change', function() {
-  city = this.value;
-  getDatabyCityName();
-});
+searchBtn.addEventListener("click", function(){
+    city = searchBox.value;
+    getDatabyCityName();
+})
+
+// showing recent cities 
+const dropdownUl = document.querySelector(".dropdown");
+searchBox.addEventListener("mouseover", function(){
+  
+      dropdownUl.innerHTML=""
+    recentCities.forEach((cityy)=>{
+        
+        const listElement = document.createElement("li");
+        listElement.classList.add("dropdown-item");
+        listElement.innerText= cityy;
+        listElement.addEventListener("click", function(){city=cityy; getDatabyCityName()})
+        dropdownUl.appendChild(listElement);
+    })
+})
+
+
 
 
 //mobile devices seachbox event listener
@@ -116,38 +139,38 @@ async function getDatabyCityName() {
         rainChance.style = `--value:${data.list[0].pop * 100};`;
         windSpeed.innerText = data.list[0].wind.speed;
         humidity.innerText = data.list[0].main.humidity;
-        day1.innerText = getDayOfWeek(data.list[18].dt);
-        day2.innerText = getDayOfWeek(data.list[27].dt);
-        day3.innerText = getDayOfWeek(data.list[36].dt);
+        day1.innerText = getDayOfWeek(data.list[17].dt);
+        day2.innerText = getDayOfWeek(data.list[25].dt);
+        day3.innerText = getDayOfWeek(data.list[33].dt);
         day4.innerText = getDayOfWeek(data.list[39].dt);
         tempTom.innerText = data.list[9].main.temp;
-        temp1.innerText = data.list[18].main.temp;
-        temp2.innerText = data.list[27].main.temp;
-        temp3.innerText = data.list[36].main.temp;
+        temp1.innerText = data.list[17].main.temp;
+        temp2.innerText = data.list[25].main.temp;
+        temp3.innerText = data.list[33].main.temp;
         temp4.innerText = data.list[39].main.temp;
         wind1.innerText = data.list[9].wind.speed;
         wind2.innerText = data.list[17].wind.speed;
-        wind3.innerText = data.list[26].wind.speed;
-        wind4.innerText = data.list[35].wind.speed;
+        wind3.innerText = data.list[25].wind.speed;
+        wind4.innerText = data.list[33].wind.speed;
         wind5.innerText = data.list[39].wind.speed;
         humidity1.innerText = data.list[9].main.humidity;
         humidity2.innerText = data.list[17].main.humidity;
-        humidity3.innerText = data.list[26].main.humidity;
-        humidity4.innerText = data.list[35].main.humidity;
+        humidity3.innerText = data.list[25].main.humidity;
+        humidity4.innerText = data.list[33].main.humidity;
         humidity5.innerText = data.list[39].main.humidity;
         icon1.src = `https://openweathermap.org/img/wn/${data.list[9].weather[0].icon.replace(
           "n",
           "d"
         )}@2x.png`;
-        icon2.src = `https://openweathermap.org/img/wn/${data.list[18].weather[0].icon.replace(
+        icon2.src = `https://openweathermap.org/img/wn/${data.list[17].weather[0].icon.replace(
           "n",
           "d"
         )}@2x.png`;
-        icon3.src = `https://openweathermap.org/img/wn/${data.list[26].weather[0].icon.replace(
+        icon3.src = `https://openweathermap.org/img/wn/${data.list[25].weather[0].icon.replace(
           "n",
           "d"
         )}@2x.png`;
-        icon4.src = `https://openweathermap.org/img/wn/${data.list[34].weather[0].icon.replace(
+        icon4.src = `https://openweathermap.org/img/wn/${data.list[33].weather[0].icon.replace(
           "n",
           "d"
         )}@2x.png`;
@@ -191,14 +214,27 @@ async function getDatabyCityName() {
         }
 
         console.log(data);
+
+        //adding the serched city to the session storage
+        if (!recentCities.includes(city.toLowerCase())) {
+          // If the city is not in the array, push it
+          recentCities.push(city.toLowerCase());
+          saveCityToSessionStorage();
+        }
       } else {
-        throw new Error(response.status);
+        if(response.status==404){
+          throw new Error("City Not found. Try different one.");
+        }else if(response.status==401 || response.status== 403){
+          throw new Error("API access denied");
+        }
+        
       }
     } else {
+      alert("Please enter city name and try again.")
       return;
     }
   } catch (error) {
-    alert("Something went wrong:" + error);
+    alert(error);
   } finally {
     domCity.classList.remove("loading");
     domCity.classList.remove("loading-dots");
@@ -323,7 +359,12 @@ async function getDatabyLocation() {
 
       console.log(data);
     } else {
-      throw new Error(response.status);
+      if(response.status==404){
+        throw new Error("City Not found. Check Spelling or Try different one.");
+      }else if(response.status==401 || response.status== 403){
+        throw new Error("API access denied");
+      }
+      
     }
   } catch (error) {
     alert(error);
@@ -413,6 +454,11 @@ function getLocalTime(unixTimestamp, timezoneShift) {
   let localTimeString = date.toLocaleTimeString("en-US", { timeZone: "UTC" }); // this returns the time string in hh:mm:ss AM/PM format.
 
   return localTimeString;
+}
+
+//function to save cities to session storage
+function saveCityToSessionStorage(){
+  sessionStorage.setItem("recentCities", JSON.stringify(recentCities));
 }
 
 // dark light mode functionality
