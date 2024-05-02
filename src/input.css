@@ -4,7 +4,10 @@
     @apply h-10 w-10
 }
 .dropdown-item{
-    @apply cursor-pointer p-1 hover:bg-blue-300 rounded-lg hover:ring-1
+    @apply cursor-pointer p-1 px-2 hover:bg-blue-300 rounded-lg hover:ring-1
+}
+.Dropdown-head{
+    @apply  p-1 pb-2 rounded-lg text-gray-800
 }
 @tailwind components;
 @tailwind utilities;
@@ -31,6 +34,18 @@
 
 
 @layer base{
+
+    @keyframes growDown {
+        0% {
+            transform: scaleY(0)
+        }
+        80% {
+            transform: scaleY(1.1)
+        }
+        100% {
+            transform: scaleY(1)
+        }
+    }
    
    
     @keyframes cloudy-day-movement {
