@@ -450,7 +450,7 @@ function getLocation() {
   if (navigator.geolocation) {
     const options = {
       enableHighAccuracy: true,
-      timeout: 5000, // maximum time allowed to retrieve the location
+      timeout: 10000, // maximum time allowed to retrieve the location
       maximumAge: 0, // force the device to get a fresh location
     };
 
