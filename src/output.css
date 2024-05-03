@@ -1903,6 +1903,22 @@ html {
   top: 15%;
 }
 
+.top-0 {
+  top: 0px;
+}
+
+.top-12 {
+  top: 3rem;
+}
+
+.top-1 {
+  top: 0.25rem;
+}
+
+.top-11 {
+  top: 2.75rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -2090,6 +2106,10 @@ html {
   width: 100%;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
 .min-w-20 {
   min-width: 5rem;
 }
@@ -2116,6 +2136,10 @@ html {
 
 .animate-\[sunny-day-movement_30s_infinite_alternate\] {
   animation: sunny-day-movement 30s infinite alternate;
+}
+
+.animate-\[growDown_300ms_ease-in-out_forwards\] {
+  animation: growDown 300ms ease-in-out forwards;
 }
 
 .cursor-pointer {

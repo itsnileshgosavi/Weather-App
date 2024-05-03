@@ -108,14 +108,20 @@
         </div>
       </nav>
       <!-- search box for mobile and tablets -->
-      <div class="flex justify-center mt-2 items-center min-[1260px]:hidden p-4 max-w-full mx-0 overflow-hidden">
+      <div class="flex justify-center mt-2 items-center min-[1260px]:hidden p-4 max-w-full mx-0 overflow-visible">
+        <label for="searchboxmb" class="relative text-black dark:text-white block">
         <input
         type="text"
-        class="w-fit h-10 border-black border p-2 text-black shadow-md bg-blue-200 rounded-lg"
+        class="w-fit h-10 border-black border p-2 text-black shadow-md bg-blue-200 rounded-lg relative"
         spellcheck="false"
         placeholder="Enter City Name"
         id="searchboxmb"
+        autocomplete="off"
       />
+      <ul class="dropdownmb animate-[growDown_300ms_ease-in-out_forwards] absolute top-10 w-full bg-[#b7b7a4] shadow-xl hidden border border-slate-700 dark:bg-slate-600 rounded-md z-[100] max-w-full">
+
+      </ul>
+      </label>
       <input type="button" value="Search" id="searchbtn" class="btn btn-primary p-0 mx-2 block my-0">
       <input type="button" value="Use Location" id="gpsbtn2" class="btn btn-secondary text-xs ">
       </div>

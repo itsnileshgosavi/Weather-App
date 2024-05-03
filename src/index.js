@@ -57,21 +57,21 @@ const searchBtn = document.getElementById("search-btn");
 const recentCities = JSON.parse(sessionStorage.getItem("recentCities")) || [];
 
 
-// event listener to get data after entering the city
-
+// event listeners to get data after entering the city
+//on pressing enter key
 searchBox.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     city = this.value;
     getDatabyCityName();   
   }
 });
-
+//on clicking the seatch button
 searchBtn.addEventListener("click", function(){
     city = searchBox.value;
     getDatabyCityName();
 })
 
-// showing recent cities 
+// showing recent cities in dropdown from session storage
 const dropdownUl = document.querySelector(".dropdown");
 searchBox.addEventListener("focus", function() {
   dropdownUl.innerHTML = "";
@@ -97,7 +97,43 @@ searchBox.addEventListener("focus", function() {
   }
 });
 
+// recently searched cities dropdown for mobile and tablets
+const dropdownUlMb = document.querySelector(".dropdownmb");
+searchBoxMb.addEventListener('focus', ()=>{
+  dropdownUlMb.innerHTML = "";
+  
+  if (recentCities.length > 0) {
+      dropdownUlMb.classList.remove("hidden");
 
+      const recents = document.createElement("li");
+      recents.innerText = "Recently Searched";
+      recents.classList.add("Dropdown-head");
+      dropdownUlMb.appendChild(recents);
+
+      recentCities.forEach((cityy) => {
+          const listElement = document.createElement("li");
+          listElement.classList.add("dropdown-item");
+          listElement.innerText = cityy;
+          listElement.addEventListener("click", ()=>{
+            city=cityy;
+            getDatabyCityName();
+          })
+          dropdownUlMb.appendChild(listElement);
+      });
+  }
+});
+//hiding the dropdown when the input field loses focus
+let hideDropdownTimeoutmb;
+searchBoxMb.addEventListener("focusout", () => {
+  console.log('focusout')
+  clearTimeout(hideDropdownTimeoutmb);
+  //setting timeout because element gets hidden before click event on list item triggers
+  hideDropdownTimeoutmb = setTimeout(function() {
+    dropdownUlMb.classList.add("hidden");
+}, 200);
+});
+
+//hiding the dropdown when the input field loses focus for large screens
 let hideDropdownTimeout;
 searchBox.addEventListener("focusout", () => {
   clearTimeout(hideDropdownTimeout);
@@ -118,15 +154,16 @@ searchBtnMb.addEventListener("click", function () {
 });
 
 
-
+//eventlisteners to get data by lattitude and logitude
 locationBtn.addEventListener("click", getLocation);
 mbLocationBtn.addEventListener("click", getLocation);
 
-// function to fetch data from api and update in the dom
 
+// function to fetch data from api by city name and update in the dom
 async function getDatabyCityName() {
   try {
     if (!city.trim() == "") {
+      //bunch of loaders to be shown while data is being fetched
       domCity.classList.add("loading");
       domCity.classList.add("loading-dots");
       domCity.classList.add("loading-md");
@@ -135,6 +172,7 @@ async function getDatabyCityName() {
       country.classList.add("loading-md");
       wetherDescription.classList.add("loading");
       wetherDescription.classList.add("loading-lg");
+
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
       );
@@ -148,11 +186,11 @@ async function getDatabyCityName() {
         feelsLike.innerText = data.list[0].main.feels_like;
         maxTemp.innerText = data.list[0].main.temp_max;
         minTemp.innerText = data.list[0].main.temp_min;
-        //convert date
-        const day = getDayOfWeek(data.list[0].dt);
+       
+        const day = getDayOfWeek(data.list[0].dt); //getting day of the week from unix timestamp
         dateMain.innerText = day;
 
-        const sunriseTime = getLocalTime(data.city.sunrise, data.city.timezone);
+        const sunriseTime = getLocalTime(data.city.sunrise, data.city.timezone); //getting sunrise and sunset times in local time
         const sunsetTime = getLocalTime(data.city.sunset, data.city.timezone);
         sunrise.innerText = sunriseTime;
         sunset.innerText = sunsetTime;
@@ -207,9 +245,9 @@ async function getDatabyCityName() {
         icon5.classList.add("icon");
 
         const cloudiness = data.list[0].clouds.all;
-
+        //adding and removing the clouds based on cloudiness percentage from the api
         switch (true) {
-          case cloudiness === 0:
+          case cloudiness === 0:        
             cloudBig.classList.add("hidden");
             cloudMed.classList.add("hidden");
             cloudSmall.classList.add("hidden");
@@ -235,29 +273,29 @@ async function getDatabyCityName() {
             cloudSmall.classList.add("hidden");
         }
 
-        console.log(data);
 
         //adding the serched city to the session storage
         if (!recentCities.includes(city.toLowerCase())) {
-          // If the city is not in the array, push it
+          // Pushing the city to the array if its not already in the array
           recentCities.push(city.toLowerCase());
-          saveCityToSessionStorage();
+          saveCityToSessionStorage(); //saving the updated array to session storage
         }
       } else {
         if(response.status==404){
-          throw new Error("City Not found. Try different one.");
+          throw new Error("Invalid City Name. Try different one.");
         }else if(response.status==401 || response.status== 403){
           throw new Error("API access denied");
         }
         
       }
     } else {
-      alert("Please enter city name and try again.")
+      alert("Please enter city name and try again. City name cannot be empty")
       return;
     }
   } catch (error) {
     alert(error);
   } finally {
+    //change the loader back to normal
     domCity.classList.remove("loading");
     domCity.classList.remove("loading-dots");
     domCity.classList.remove("loading-md");
@@ -271,6 +309,7 @@ async function getDatabyCityName() {
 
 async function getDatabyLocation() {
   try {
+      //bunch of loaders to denote data is being fetched
     const loading = document.createElement("span");
     loading.classList.add("loading");
     loading.classList.add("loading-dots");
@@ -285,6 +324,7 @@ async function getDatabyLocation() {
     country.classList.add("loading-md");
     wetherDescription.classList.add("loading");
     wetherDescription.classList.add("loading-lg");
+
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
     );
@@ -351,7 +391,7 @@ async function getDatabyLocation() {
       )}.png`;
 
       const cloudiness = data.list[0].clouds.all;
-
+        //adding  and removing the clouds based on cloudiness
       switch (true) {
         case cloudiness === 0:
           cloudBig.classList.add("hidden");
@@ -379,10 +419,10 @@ async function getDatabyLocation() {
           cloudSmall.classList.add("hidden");
       }
 
-      console.log(data);
+     
     } else {
       if(response.status==404){
-        throw new Error("City Not found. Check Spelling or Try different one.");
+        throw new Error("Data not availlable for your location");
       }else if(response.status==401 || response.status== 403){
         throw new Error("API access denied");
       }
