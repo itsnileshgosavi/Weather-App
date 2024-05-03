@@ -431,6 +431,7 @@ async function getDatabyLocation() {
   } catch (error) {
     alert(error);
   } finally {
+    //removing the loading effects
     locationBtn.innerHTML = "Use Location";
     domCity.classList.remove("loading");
     domCity.classList.remove("loading-dots");
@@ -444,7 +445,7 @@ async function getDatabyLocation() {
 }
 
 
-
+//function to get location data from browser api
 function getLocation() {
   if (navigator.geolocation) {
     const options = {
@@ -458,15 +459,14 @@ function getLocation() {
     alert("Geolocation is not supported by this browser.");
   }
 }
-
+//callback function to get lattitude and longitude
 function getPosition(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude;
 
-  console.log("Latitude: " + latitude + ", Longitude: " + longitude);
-  getDatabyLocation();
+  getDatabyLocation(); //calling the function to fetch and update the data in dom
 }
-
+//handling errors while getting location data from browser
 function showError(error) {
   switch (error.code) {
     case error.PERMISSION_DENIED:
@@ -486,7 +486,7 @@ function showError(error) {
 
 // function to get day of the week from unix
 function getDayOfWeek(unixTimestamp) {
-  let milliseconds = unixTimestamp * 1000;
+  let milliseconds = unixTimestamp * 1000; 
   let date = new Date(milliseconds);
 
   let dayOfWeek = date.getDay();
@@ -529,8 +529,8 @@ const toggle = document.getElementById("dark-toggle");
 
 toggle.addEventListener("change", function () {
   if (toggle.checked) {
-    document.documentElement.classList.add("dark");
-    localStorage.theme = "dark";
+    document.documentElement.classList.add("dark"); //adding dark class to html tag
+    localStorage.theme = "dark"; //setting the theme to dark in local storage
   } else {
     document.documentElement.classList.remove("dark");
     localStorage.removeItem("theme");
